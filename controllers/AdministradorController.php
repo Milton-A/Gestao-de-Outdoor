@@ -10,8 +10,22 @@ require_once __DIR__.'/./GestorController.php';
 class AdministradorController {
     private $admService = NULL;
     
-    public function __construct(){
-        $this->admService = new AdministradorService();
+    public function __construct() {
+         $this->admService = new AdministradorService();
+        $op = filter_input(INPUT_GET, 'op');
+        $action = isset($op) ? $op : NULL;
+        try {
+            if ($action === 'addGestor') {
+                $this->showCadastrarGestor();
+            }
+        } catch (Exception $e) {
+            // some unknown Exception got through here, use application error page to display it
+            $this->showError("Application error", $e->getMessage());
+        }
+    }
+    
+    public function showCadastrarGestor(){
+        include __DIR__.'../views/administrador/administradorFormRegisterGestor.php';
     }
     
     public function redirect($location){

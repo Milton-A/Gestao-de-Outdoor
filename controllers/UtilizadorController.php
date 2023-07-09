@@ -26,16 +26,10 @@ class UtilizadorController {
         $filterOp = filter_input(INPUT_GET, 'op');
         $op = isset($filterOp) ? $filterOp : NULL;
         try {
-            if (!$op || $op == 'show') {
-                
-            } else if ($op == 'registroAdm' || $op == 'registroCliente') {
+             if ($op == 'registroAdm' || $op == 'registroCliente') {
                 $this->registrar();
-            } else if ($op == 'login') {
-                $this->login();
             } else if ($op == 'alterarAdm' || $op == 'alterarGestor' || $op == 'alterarCliente') {
                 $this->alterar();
-            } else {
-                $this->showError("Page not found", "Page for operation " . $op . " was not found!");
             }
         } catch (Exception $e) {
             // some unknown Exception got through here, use application error page to display it
@@ -142,13 +136,14 @@ class UtilizadorController {
             } else {
                 
                 $utilizador = $this->utilizadorService->verificaLogin($username, $password);
+                echo $utilizador;
                 if ($utilizador === 'cliente') {
-                    $this->redirect('home.php');
+                    $this->redirect('index.php');
                 } else if ($utilizador === 'gestor') {
-                    $this->redirect('formGestor.php');
+                    $this->redirect('index.php');
                 } else if ($utilizador === 'adm') {
                     echo "<script>alert('Por favor, preencha todos os campos!');</script>";
-                    $this->redirect('../administrador/administradorView.php');
+                    $this->redirect('index.php');
                 }
             }
         } else

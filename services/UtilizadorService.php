@@ -36,7 +36,7 @@ class UtilizadorService implements IUtilizadorService {
             if ($utilizador !== NULL) {
                 if ($this->isAdm($utilizador)) {
                     return 'adm';
-                } else if ($this->isCliente($utilizador)) {
+                } else if ($this->isCliente($utilizador) ) {
                     return 'cliente';
                 } else if ($this->isGestor($utilizador)) {
                     return'gestor';

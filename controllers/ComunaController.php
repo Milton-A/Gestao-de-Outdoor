@@ -13,7 +13,7 @@ class ComunaController {
     
     public function __construct() {
         $this->comunaService = new ComunaService();
-        $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
         $comunas = $this->comunaService->getComunas($id);
         include __DIR__.'/../views/comuna/comuna.php';
     }

@@ -1,29 +1,9 @@
-
 <?php
-session_start();
-// Verificar se o usuário está logado
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-    // Usuário logado
-    $logado = true;
-} else {
-    // Usuário não logado
-    $logado = false;
-}
+    include 'header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>XPTO Solutions</title>
-        <link rel="stylesheet" href="content/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="content/css/style.css">
-    </head>
-    <body>
         <header id="header" class="header fixed-top d-flex align-items-center">
             <div class="d-flex align-items-center justify-content-between">
-                <a href="index.html" class="logo d-flex align-items-center">
+                <a href="index.php" class="logo d-flex align-items-center">
                     <span class="d-none d-lg-block">XPTO Solution</span>
                 </a>
             </div>
@@ -47,16 +27,16 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                     </button>
                     <div class="dropdown-menu me-5" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item me-5" href="#">Alterar Dados</a>
-                        <a class="dropdown-item me-5" href="views/logout.php">Sair</a>
+                        <a class="dropdown-item me-5" href="index.php?op=logout">Sair</a>
                     </div>
                 </div>
             <?php } else { ?>
                 <nav class="header-nav ms-auto">
                     <ul class="d-flex align-items-center">
-                        <li><a href="views/login/loginView.php?op=login" class="d-flex btn btn-outline-dark">Entrar</a>
+                        <li><a href="index.php?op=login" class="d-flex btn btn-outline-dark">Entrar</a>
                         </li>
                         <li>
-                            <a href = "views/registro/registroView.php?op=registroCliente" class="d-flex btn btn-outline-dark m-3">
+                            <a href = "index.php?op=registrar" class="d-flex btn btn-outline-dark m-3">
                                 Registrar-se
                             </a>
                         </li>
@@ -100,9 +80,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                 </div>
             </div>
         </section>
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; XPTO Solutions 2023</p></div>
-        </footer>
-        <<script src="scripts/custom/js/script.js"></script>
-    </body>
-</html>
+<?php
+
+include 'footer.php';

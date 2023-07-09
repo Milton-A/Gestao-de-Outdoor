@@ -14,7 +14,7 @@ class MunicipioController {
 
     public function __construct() {
         $this->municipioService = new MunicipioService();
-        $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
         $municipios = $this->municipioService->getMunicipios($id);
         include __DIR__ . '/../views/municipio/municipio.php';
     }

@@ -76,9 +76,13 @@ h2 > span {
     transition: all 0.2s ease-in-out;
 }
 
-.sidebar-menu > span{
+.sidebar-menu a > span{
     font-size: 20px;
     padding-right: 25px;
+}
+.sidebar-link{
+    text-decoration: none;
+    color: inherit; 
 }
 
 .sidebar-menu:hover{
