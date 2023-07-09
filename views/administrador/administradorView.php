@@ -106,7 +106,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     </main>
 
     <?php
-    include './footer.php';
-}
+    include 'footer.php';
+} else
 echo '!!!!Pagina não encontrada';
 ?>

@@ -12,7 +12,7 @@ class homeController {
     private $utilizadorService = NULL;
 
     public function __construct() {
-        
+
         $this->admController = new AdministradorController();
         $this->gestorController = new GestorController();
         $this->clienteController = new ClienteController();
@@ -25,14 +25,15 @@ class homeController {
                 
             } else if ($action === 'login') {
                 $this->showLogin();
-            } else if ($action === 'logout') {
+            } else if ($action === 'adm') {
+                $this->showAdmPage();
+            }else if ($action === 'logout') {
                 $this->showLogOut();
             } else if ($action === 'registrar') {
                 $this->showRegistro();
             } else if ($op == 'registroCliente') {
                 $this->registrar();
-            }
-            else if ($op == 'alterarAdm' || $op == 'alterarGestor' || $op == 'alterarCliente') {
+            } else if ($op == 'alterarAdm' || $op == 'alterarGestor' || $op == 'alterarCliente') {
                 $this->alterar();
             } else {
                 $this->showHome();
@@ -57,9 +58,7 @@ class homeController {
             if (empty($username) || empty($password)) {
                 echo "<script>alert('Por favor, preencha todos os campos!');</script>";
             } else {
-
                 $utilizador = $this->utilizadorService->verificaLogin($username, $password);
-                echo $utilizador;
                 if ($utilizador === 'cliente') {
                     $this->redirect('index.php?op=cliente');
                 } else if ($utilizador === 'gestor') {
@@ -70,13 +69,15 @@ class homeController {
                 }
             }
         } else
-        include __DIR__ . '/../views/login/loginView.php';
+            include __DIR__ . '/../views/login/loginView.php';
     }
 
     public function showRegistro() {
         $filterOp = filter_input(INPUT_GET, 'op');
+        $filterUser = filter_input(INPUT_GET, 'user');
         $op = isset($filterOp) ? $filterOp : NULL;
-        if (isset($_POST['form-submitted'])) {
+        if (isset($_POST['form-register-submeitted'])) {
+            echo "<script>alert('Email já utilizado!');</script>";
             $nome = filter_input(INPUT_POST, 'nome');
             $apelido = filter_input(INPUT_POST, 'apelido');
             $actividadeEmpresa = filter_input(INPUT_POST, 'atividadeEmpresa');
@@ -93,13 +94,7 @@ class homeController {
             try {
                 if (!$this->utilizadorService->verificaEmail($email)) {
                     if (!$this->utilizadorService->verificaUsername($username)) {
-                        if ($op == 'registroAdm') {
-                            $this->admController->criarAdm($nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senhaCriptografada, $eliminado);
-                        } else if ($op == 'registroCliente') {
-                            $this->clienteController->criarCliente($nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senhaCriptografada, $eliminado);
-                        } else {
-                            $this->showError("Page not found", "Page for operation " . $op . " was not found!");
-                        }
+                        $this->clienteController->criarCliente($nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senhaCriptografada, $eliminado);
                         $this->redirect('index.php?op=login');
                     } else {
                         echo "<script>alert('Username já utilizado!');</script>";
@@ -110,12 +105,16 @@ class homeController {
             } catch (ValidationException $e) {
                 $errors = $e->getErrors();
             }
-        }else
-        include __DIR__ . '/../views/registro/registroView.php';
+        } else
+            include __DIR__ . '/../views/registro/registroView.php';
     }
 
     public function showHome() {
         include __DIR__ . '/../views/home.php';
+    }
+    
+    public function showAdmPage() {
+        include __DIR__.'/../views/administrador/administradorView.php';
     }
 
     public function showError($tittle, $message) {
@@ -166,4 +165,5 @@ class homeController {
     public function redirect($location) {
         header('Location: ' . $location);
     }
+
 }

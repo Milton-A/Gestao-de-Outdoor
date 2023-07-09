@@ -107,7 +107,7 @@ include_once 'header.php';
                                         <button type="submit" class="btn btn-primary" name="btn-save">
                                             Criar
                                         </button>  
-                                        <input type="hidden" name="form-submitted" value="1" />
+                                        <input type="hidden" name="form-register-submeitted" value="1" />
                                     </div>
                                 </form>
                             </div>
