@@ -1,10 +1,10 @@
 <?php
 
-require_once __DIR__. '/../model/ClienteModel.php';
+require_once __DIR__ . '/../model/ClienteModel.php';
 require_once __DIR__ . '/../dbconfig/DbConnection.php';
-require_once __DIR__.'/../repositories/IClienteRepositorie.php';
+require_once __DIR__ . '/../repositories/IClienteRepositorie.php';
 
-class ClienteRepositorie  implements IClienteRepositorie{
+class ClienteRepositorie implements IClienteRepositorie {
 
     private $db;
 
@@ -38,11 +38,21 @@ class ClienteRepositorie  implements IClienteRepositorie{
     }
 
     public function selectById($id) {
-        $stmt = $this->db->prepare("SELECT * FROM utilizador AS u INNER JOIN utilizadorregistado ON u.idUtilizador = utilizadorregistado.idUtilizadorRegistado where utilizadorregistado.idUtilizadorRegistado = :id ");
-        $stmt->bindparam(":id", $id);
-        $stmt->execute();
-        $adm = $stmt->fetchAll(); // Obtenha todos os resultados em vez de apenas uma linha
-        return new ClienteModel($adm['idUtilizadorRegistado']);
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM utilizadorregistado where idUtilizadorRegistado = :id ");
+            $stmt->bindparam(":id", $id);
+            $stmt->execute();
+            $cliente = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($cliente !== null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
     }
 
     public function insertId($id) {
@@ -58,7 +68,7 @@ class ClienteRepositorie  implements IClienteRepositorie{
     }
 
     public function selectAll() {
-        $stmt = $this->db->prepare("SELECT `idUtilizador`, u.nome, `apelido`, `tipoCliente`, `nacionalidade`, `atividadeEmpresa`, c.nome, `morada`, `email`, `telemovel`, `username`, `senha`, `eliminado`, `estado` from utilizador AS u INNER JOIN utilizadorregistado ON u.idUtilizador = utilizadorregistado.idUtilizadorRegistado INNER JOIN comuna AS c ON c.idComuna = u.idComuna");
+        $stmt = $this->db->prepare("SELECT `idUtilizador`, `nome`, `apelido`, `tipoCliente`, `nacionalidade`, `atividadeEmpresa`, `idComuna`, `morada`, `email`, `telemovel`, `username`, `senha`, `eliminado`, estado FROM utilizador u join utilizadorregistado ur on ur.idUtilizadorRegistado = u.idUtilizador");
         $stmt->execute();
         $usersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $users = [];
@@ -124,7 +134,7 @@ class ClienteRepositorie  implements IClienteRepositorie{
             return false;
         }
     }
-    
+
     public function setEstado($estado, $id) {
         try {
             $stmt = $this->db->prepare("UPDATE utilizadorregistado SET estado = :estado WHERE idUtilizadorRegistado = :id");
@@ -137,8 +147,7 @@ class ClienteRepositorie  implements IClienteRepositorie{
             return false;
         }
     }
-    
-    
+
     public function selectCount() {
         try {
             $stmt = $this->db->prepare("SELECT COUNT(*) FROM `utilizadorregistado`");

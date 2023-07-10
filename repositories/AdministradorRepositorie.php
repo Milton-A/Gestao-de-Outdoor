@@ -45,11 +45,17 @@ class AdministradorRepositorie implements IAdministradorRepositorie {
 
     public function selectById($id) {
         try {
-            $stmt = $this->db->prepare("SELECT * FROM administrador where idAdministrador = :id ");
+            echo $id;
+            $stmt = $this->db->prepare("SELECT idAdministrador FROM administrador where idAdministrador = :id ");
             $stmt->bindparam(":id", $id);
             $stmt->execute();
-            $adm = $stmt->fetchAll(); // Obtenha todos os resultados em vez de apenas uma linha
-            return true;
+            $adm = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($adm !== null) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (PDOException $e) {
             echo $e->getMessage();
             return false;
@@ -95,7 +101,7 @@ class AdministradorRepositorie implements IAdministradorRepositorie {
             return false;
         }
     }
-    
+
     public function selectCount() {
         try {
             $stmt = $this->db->prepare("SELECT COUNT(*) FROM `administrador`");

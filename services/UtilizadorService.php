@@ -33,11 +33,12 @@ class UtilizadorService implements IUtilizadorService {
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $username;
             $_SESSION['id'] = $utilizador;
+            
             if ($utilizador !== NULL) {
                 if ($this->isAdm($utilizador)) {
                     return 'adm';
                 } else if ($this->isCliente($utilizador) ) {
-                    //return 'cliente';
+                    return 'cliente';
                 } else if ($this->isGestor($utilizador)) {
                     return'gestor';
                 } else {

@@ -1,20 +1,21 @@
 <?php
+
 /*
  * Description of GestorModel
  * @author Milton Dantas
  */
-require_once  __DIR__.'/../model/GestorModel.php';
-require_once __DIR__.'/./IGestorRepositorie.php';
+require_once __DIR__ . '/../model/GestorModel.php';
+require_once __DIR__ . '/./IGestorRepositorie.php';
 require_once __DIR__ . '/../dbconfig/DbConnection.php';
 
-class GestorRepositorie implements IGestorRepositorie{
-    
+class GestorRepositorie implements IGestorRepositorie {
+
     private $db;
 
     public function __construct() {
         $this->db = DbConnection::getInstance();
     }
-    
+
     public function insertGestor($nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senha, $eliminado) {
         try {
             $stmt = $this->db->prepare("INSERT INTO `utilizador`(`nome`, `apelido`, `tipoCliente`, `nacionalidade`, `atividadeEmpresa`, `idComuna`, `morada`, `email`, `telemovel`, `username`, `senha`, `eliminado`) VALUES (:nome, :apelido, :tipoCliente, :nacionalidade, :actividadeEmpresa, :comuna, :morada, :email, :telemovel, :username, :senha, :eliminado)");
@@ -44,8 +45,13 @@ class GestorRepositorie implements IGestorRepositorie{
         $stmt = $this->db->prepare("SELECT * FROM utilizador AS u INNER JOIN gestor ON u.idUtilizador = gestor.idGestor where gestor.idGestor = :id ");
         $stmt->bindparam(":id", $id);
         $stmt->execute();
-        $adm = $stmt->fetchAll(); // Obtenha todos os resultados em vez de apenas uma linha
-        return new AdministradorModel($adm['idGestor']);
+        $gestor = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($gestor !== null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function insertId($id) {
@@ -123,7 +129,7 @@ class GestorRepositorie implements IGestorRepositorie{
             return false;
         }
     }
-    
+
     public function selectCount() {
         try {
             $stmt = $this->db->prepare("SELECT COUNT(*) FROM `gestor`");
@@ -135,4 +141,5 @@ class GestorRepositorie implements IGestorRepositorie{
             return false;
         }
     }
+
 }

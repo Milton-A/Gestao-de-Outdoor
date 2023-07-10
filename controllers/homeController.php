@@ -19,6 +19,7 @@ class homeController {
         $this->utilizadorService = new UtilizadorService();
 
         $op = filter_input(INPUT_GET, 'op');
+        $opEstado = filter_input(INPUT_GET, 'estado');
         $action = isset($op) ? $op : NULL;
         try {
             if ($action === 'cadastrar') {
@@ -26,11 +27,14 @@ class homeController {
             } else if ($action === 'login') {
                 $this->showLogin();
             } else if ($action === 'adm') {
-                $this->showAdmPage();
-            }else if ($action === 'logout') {
+                if ($opEstado === 'addGestor') {
+                    $this->showRegistro("addGestor");
+                } else
+                    $this->showAdmPage();
+            } else if ($action === 'logout') {
                 $this->showLogOut();
             } else if ($action === 'registrar') {
-                $this->showRegistro();
+                $this->showRegistro("addCliente");
             } else if ($op == 'registroCliente') {
                 $this->registrar();
             } else if ($op == 'alterarAdm' || $op == 'alterarGestor' || $op == 'alterarCliente') {
@@ -72,7 +76,7 @@ class homeController {
             include __DIR__ . '/../views/login/loginView.php';
     }
 
-    public function showRegistro() {
+    public function showRegistro($estado) {
         $filterOp = filter_input(INPUT_GET, 'op');
         $filterUser = filter_input(INPUT_GET, 'user');
         $op = isset($filterOp) ? $filterOp : NULL;
@@ -89,13 +93,17 @@ class homeController {
             $telemovel = filter_input(INPUT_POST, 'telemovel');
             $username = filter_input(INPUT_POST, 'userName');
             $senha = filter_input(INPUT_POST, 'senha');
-            $eliminado = 0; // Defina o valor de eliminado conforme necessário
-            $senhaCriptografada = password_hash($senha, PASSWORD_DEFAULT);
+            $eliminado = 0;
             try {
                 if (!$this->utilizadorService->verificaEmail($email)) {
                     if (!$this->utilizadorService->verificaUsername($username)) {
-                        $this->clienteController->criarCliente($nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senhaCriptografada, $eliminado);
-                        $this->redirect('index.php?op=login');
+                        if ($estado === "addGestor") {
+                            $this->admController->criarGestor($nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senha, $eliminado);
+                            $this->redirect('index.php?op=login');
+                        } else {
+                            $this->clienteController->criarCliente($nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senha, $eliminado);
+                            $this->redirect('index.php?op=login');
+                        }
                     } else {
                         echo "<script>alert('Username já utilizado!');</script>";
                     }
@@ -112,9 +120,9 @@ class homeController {
     public function showHome() {
         include __DIR__ . '/../views/home.php';
     }
-    
+
     public function showAdmPage() {
-        include __DIR__.'/../views/administrador/administradorView.php';
+        include __DIR__ . '/../views/administrador/administradorView.php';
     }
 
     public function showError($tittle, $message) {

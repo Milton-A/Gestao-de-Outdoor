@@ -24,7 +24,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             <p>Clientes</p>
         </div>
         <div class="sidebar-menu">
-            <a href="administradorView.php?OP=addGestor" class="sidebar-link">
+            <a href="index.php?op=adm&&estado=addGestor" class="sidebar-link">
                 <span class="fas fa-users"></span>
                 <p>Gestores</p>
             </a>

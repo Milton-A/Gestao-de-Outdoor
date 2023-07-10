@@ -24,8 +24,9 @@ class UtilizadorRepositorie implements IUtilizadorRepositorie {
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         
-        if ($user && password_verify($password, $user['senha'])) {
-            return $user['idUtilizador'];
+        if ($password == $user['senha']) {
+            $id = $user['idUtilizador'];
+            return $id;
         } else {
             return false;
         }
