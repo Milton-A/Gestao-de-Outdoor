@@ -6,7 +6,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && $_SESSION[
     // Usuário logado
     require_once __DIR__ . '/../../controllers/AdministradorController.php';
     $admController = new AdministradorController();
-?>
+    ?>
     <nav class="navbar">
         <h4>Dashboard</h4>
         <div class="profile">
@@ -17,8 +17,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && $_SESSION[
     <label class="side-toggle" for="toggle"><span class="fas fa-bars"></span></label>
     <div class="sidebar">
         <div class="sidebar-menu">
-            <span class="fas fa-clipboard-list"></span>
-            <p>Home</p>
+            <span class="fas fa-clipboard-list"></span><p>Home</p>
         </div>
         <div class="sidebar-menu">
             <span class="fas fa-users"></span>
@@ -80,16 +79,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && $_SESSION[
                     <h2>Todos</h2>
                     <button>ver mais..</button>
                 </div>
-                <div id="tabela">
-
-                </div>
                 <?php echo $admController->showClientes(); ?>
-                <?php echo $admController->showGestores(); ?>
             </div>
         </div>
     </main>
-<?php
+
+    <?php
     include 'footer.php';
 } else
-    echo '!!!!Pagina não encontrada';
+echo '!!!!Pagina não encontrada';
 ?>

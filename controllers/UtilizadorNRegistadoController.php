@@ -14,4 +14,5 @@ class UtilizadorNRegistadoController {
         $this->utilizadorController->registrar();
     }
     
+    
 }

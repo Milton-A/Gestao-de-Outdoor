@@ -6,40 +6,32 @@
  */
 class OutdoorModel {
     //put your code here
+    private $idOutdoor;
     private $tipo;
-    private $provincia;
     private $comuna;
-    private $municipio;
     private $imagem;
     private $disponibilidade;
     private $preco;
-    private $estadoPagamento;
     
-    public function __construct($tipo, $provincia, $comuna, $municipio, $imagem, $disponibilidade, $preco, $estadoPagamento) {
+    public function __construct($idOutdoor,$tipo,$comuna, $imagem, $disponibilidade, $preco) {
+        $this->idOutdoor = $idOutdoor;
         $this->tipo = $tipo;
-        $this->provincia = $provincia;
         $this->comuna = $comuna;
-        $this->municipio = $municipio;
         $this->imagem = $imagem;
         $this->disponibilidade = $disponibilidade;
         $this->preco = $preco;
-        $this->estadoPagamento = $estadoPagamento;
+    }
+    
+    public function getIdOutdoor() {
+        return $this->idOutdoor;
     }
 
     public function getTipo() {
         return $this->tipo;
     }
 
-    public function getProvincia() {
-        return $this->provincia;
-    }
-
     public function getComuna() {
         return $this->comuna;
-    }
-
-    public function getMunicipio() {
-        return $this->municipio;
     }
 
     public function getImagem() {
@@ -54,24 +46,16 @@ class OutdoorModel {
         return $this->preco;
     }
 
-    public function getEstadoPagamento() {
-        return $this->estadoPagamento;
+    public function setIdOutdoor($idOutdoor): void {
+        $this->idOutdoor = $idOutdoor;
     }
 
     public function setTipo($tipo): void {
         $this->tipo = $tipo;
     }
 
-    public function setProvincia($provincia): void {
-        $this->provincia = $provincia;
-    }
-
     public function setComuna($comuna): void {
         $this->comuna = $comuna;
-    }
-
-    public function setMunicipio($municipio): void {
-        $this->municipio = $municipio;
     }
 
     public function setImagem($imagem): void {
@@ -85,8 +69,4 @@ class OutdoorModel {
     public function setPreco($preco): void {
         $this->preco = $preco;
     }
-
-    public function setEstadoPagamento($estadoPagamento): void {
-        $this->estadoPagamento = $estadoPagamento;
-    }   
 }

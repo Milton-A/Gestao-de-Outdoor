@@ -47,7 +47,7 @@ class GestorRepositorie implements IGestorRepositorie {
         $stmt->execute();
         $gestor = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($gestor !== null) {
+        if ($gestor != null) {
             return true;
         } else {
             return false;
@@ -67,22 +67,26 @@ class GestorRepositorie implements IGestorRepositorie {
     }
 
     public function selectAll() {
-        $stmt = $this->db->prepare("SELECT u.idCliente, u.nome, u.apelido, u.tipoCliente, u.nacionalidade, u.atividadeEmpresa, c.nome AS nomeComuna, u.morada, u.email, u.telemovel FROM utilizador AS u INNER JOIN gestor ON u.idUtilizador = gestor.idGestor INNER JOIN comuna AS c ON c.idComuna = u.idComuna");
+        $stmt = $this->db->prepare("SELECT `idUtilizador`, utilizador.nome, `apelido`, `tipoCliente`, `nacionalidade`, `atividadeEmpresa`, comuna.nome as comuna, `morada`, `email`, `telemovel`, `username`, `senha`, `eliminado`,`estado` FROM `utilizador` join gestor on gestor.idGestor = utilizador.idUtilizador join comuna on comuna.idComuna = utilizador.idComuna");
         $stmt->execute();
         $usersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $users = [];
         foreach ($usersData as $userData) {
-            $user = new AdministradorModel(
+            $user = new GestorModel(
                     $userData['idUtilizador'],
                     $userData['nome'],
                     $userData['apelido'],
-                    $userData['tipoCliente'],
-                    $userData['nacionalidade'],
                     $userData['atividadeEmpresa'],
-                    $userData['nomeComuna'],
+                    $userData['tipoCliente'],
+                    $userData['nome'],
+                    $userData['nacionalidade'],
                     $userData['morada'],
                     $userData['email'],
-                    $userData['telemovel']
+                    $userData['telemovel'],
+                    '',
+                    '',
+                    $userData['eliminado'],
+                    $userData['estado']
             );
             $users[] = $user;
         }

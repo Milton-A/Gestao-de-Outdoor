@@ -32,4 +32,37 @@ class ClienteService implements IClienteService {
             throw $e;
         }
     }
+    
+    public function bloquearCliente($id) {
+        try {
+            $this->clienteRepositorie->setEstado("bloqueado", $id);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function desbloquearCliente($id) {
+        try {
+            $this->clienteRepositorie->setEstado("ativo", $id);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function ativarCliente($id) {
+        try {
+            $this->clienteRepositorie->setEstado("ativo", $id);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+    
+    public function showClientes()
+    {
+        try {
+            return $this->clienteRepositorie->selectAll();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 }

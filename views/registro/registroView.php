@@ -8,7 +8,15 @@ include_once 'header.php';
             <div class="container">
                 <div class="row justify-content-center">
                     <div>
-                        <a href="index.php" class="col-12 ">
+
+                        <a href="<?php
+                        session_start();
+                        if (isset($_SESSION['tipo']) && $_SESSION['tipo'] == "adm") {
+                            echo "index.php?op=adm";
+                        }else
+                            echo "index.php";
+                        ?>"
+                           class="col-12 ">
                             <button type="button" class="btn-close btn btn-danger p-2" disabled aria-label="Close"></button>
                         </a>
                     </div>

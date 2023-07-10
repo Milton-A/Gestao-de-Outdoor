@@ -51,7 +51,7 @@ class AdministradorRepositorie implements IAdministradorRepositorie {
             $stmt->execute();
             $adm = $stmt->fetch(PDO::FETCH_ASSOC);
             
-            if ($adm !== null) {
+            if ($adm != null) {
                 return true;
             } else {
                 return false;

@@ -28,6 +28,7 @@ class ClienteRepositorie implements IClienteRepositorie {
             $stmt->bindParam(":senha", $senha);
             $stmt->bindParam(":eliminado", $eliminado);
             $stmt->execute();
+            mail('adrianonovo33@gmail.com', 'Cadastro de novo Usuário', 'O Usuario: precisa de verificação!', 'From: adrianonovo33@gmail.com');
             $id = $this->db->lastInsertId();
             $this->insertId($id);
             return true;
@@ -44,7 +45,7 @@ class ClienteRepositorie implements IClienteRepositorie {
             $stmt->execute();
             $cliente = $stmt->fetch(PDO::FETCH_ASSOC);
             
-            if ($cliente !== null) {
+            if ($cliente != null) {
                 return true;
             } else {
                 return false;
@@ -68,7 +69,7 @@ class ClienteRepositorie implements IClienteRepositorie {
     }
 
     public function selectAll() {
-        $stmt = $this->db->prepare("SELECT `idUtilizador`, `nome`, `apelido`, `tipoCliente`, `nacionalidade`, `atividadeEmpresa`, `idComuna`, `morada`, `email`, `telemovel`, `username`, `senha`, `eliminado`, estado FROM utilizador u join utilizadorregistado ur on ur.idUtilizadorRegistado = u.idUtilizador");
+        $stmt = $this->db->prepare("SELECT `idUtilizador`, u.nome as nome, `apelido`, `tipoCliente`, `nacionalidade`, `atividadeEmpresa`, comuna.nome as comuna, `morada`, `email`, `telemovel`, `username`, `senha`, `eliminado`, estado FROM utilizador u join utilizadorregistado ur on ur.idUtilizadorRegistado = u.idUtilizador JOIN comuna on comuna.idComuna = u.idComuna");
         $stmt->execute();
         $usersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $users = [];
@@ -79,7 +80,7 @@ class ClienteRepositorie implements IClienteRepositorie {
                     $userData['apelido'],
                     $userData['atividadeEmpresa'],
                     $userData['tipoCliente'],
-                    $userData['nome'],
+                    $userData['comuna'],
                     $userData['nacionalidade'],
                     $userData['morada'],
                     $userData['email'],

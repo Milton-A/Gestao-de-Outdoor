@@ -13,4 +13,8 @@
 interface IClienteService {
     public function insertCliente($nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senha, $eliminado);
     public function alterarUtilizador($id, $nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senha, $eliminado);
+    public function bloquearCliente($id);
+    public function desbloquearCliente($id);
+    public function ativarCliente($id) ;
+     public function showClientes();
 }

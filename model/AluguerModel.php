@@ -1,33 +1,35 @@
 <?php
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
- */
-
 /**
  * Description of SolicitarAluguerModel
  *
  * @author Milton Dantas
  */
 class AluguerModel {
+
     //put your code here
-    private $listaOutdoors;
     private $dataInicio;
     private $dataFim;
     private $idUsuario;
-    private $idGestor;
-    
-    public function __construct($listaOutdoors, $dataInicio, $dataFim, $idUsuario, $idGestor) {
-        $this->listaOutdoors = $listaOutdoors;
+    private $recibo;
+    private $idOutdoor;
+    private $aprovado;
+
+    public function __construct($dataInicio, $dataFim, $recibo = null, $idUsuario, $idOutdoor, $aprovado) {
         $this->dataInicio = $dataInicio;
         $this->dataFim = $dataFim;
         $this->idUsuario = $idUsuario;
-        $this->idGestor = $idGestor;
+        $this->recibo = $recibo;
+        $this->idOutdoor = $idOutdoor;
+        $this->aprovado = $aprovado;
     }
-    
-    public function getListaOutdoors() {
-        return $this->listaOutdoors;
+
+    public function getAprovado() {
+        return $this->aprovado;
+    }
+
+    public function setAprovado($aprovado): void {
+        $this->aprovado = $aprovado;
     }
 
     public function getDataInicio() {
@@ -38,17 +40,6 @@ class AluguerModel {
         return $this->dataFim;
     }
 
-    public function getIdUsuario() {
-        return $this->idUsuario;
-    }
-
-    public function getIdGestor() {
-        return $this->idGestor;
-    }
-
-    public function setListaOutdoors($listaOutdoors): void {
-        $this->listaOutdoors = $listaOutdoors;
-    }
 
     public function setDataInicio($dataInicio): void {
         $this->dataInicio = $dataInicio;
@@ -64,5 +55,21 @@ class AluguerModel {
 
     public function setIdGestor($idGestor): void {
         $this->idGestor = $idGestor;
+    }
+
+    public function getRecibo() {
+        return $this->recibo;
+    }
+
+    public function getIdOutdoor() {
+        return $this->idOutdoor;
+    }
+    
+    public function setRecibo($recibo): void {
+        $this->recibo = $recibo;
+    }
+
+    public function setIdOutdoor($idOutdoor): void {
+        $this->idOutdoor = $idOutdoor;
     }
 }

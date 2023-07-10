@@ -23,12 +23,6 @@ interface IAdministradorService {
 
     public function deleteAdministrador($id);
 
-    public function desbloquearCliente($id);
-
-    public function ativarCliente($id);
-
-    public function bloquearCliente($id);
-
     public function deleteCliente($id);
 
     public function showClientes();

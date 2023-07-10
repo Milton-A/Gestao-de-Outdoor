@@ -6,4 +6,5 @@
 interface IOutdoorRepositorie {
     //put your code here
     public function selectCount();
+    public function selectAll();
 }

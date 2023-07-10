@@ -15,10 +15,9 @@
             </div>
             <?php if ($logado) { ?>
                 <form class="d-flex ms-auto me-1">
-                    <button class="btn btn-outline-dark" type="submit">
+                    <button class="btn btn-outline-dark" type="submit" id="mostrarListaBtn">
                         <i class="bi-cart-fill me-1"></i>
                         Aluger
-                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                     </button>
                 </form>
                 <div class="dropdown">
@@ -52,31 +51,9 @@
                 </div>
             </div>
         </header>
-        <section class="py-5">
+        <section class="py-5" >
             <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <?php for ($i = 0; $i < 5; $i++) { ?>
-                        <div class="col mb-5">
-                            <div class="card h-100">
-                                <img class="card-img-top" src="" alt="..." />
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <h5 class="fw-bolder">Item 2</h5>
-                                        kz40.00 - kz80.00
-                                    </div>
-                                </div>
-                                <?php if ($logado) { ?>
-                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Adicionar a lista</a></div>
-                                    </div>
-                                <?php } else { ?>
-                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Adicionar a lista</a></div>
-                                    </div>
-                                <?php } ?>
-                            </div>
-                        </div>
-                    <?php } ?>
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="cardOutdoors">
                 </div>
             </div>
         </section>

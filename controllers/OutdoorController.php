@@ -1,14 +1,20 @@
 <?php
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
- */
-
 /**
  * Description of OutdoorModel
  * @author Milton Dantas
  */
-class OutdoorModel {
-    //put your code here
+
+require_once __DIR__.'/../services/OutdoorService.php';
+
+class OutdoorController {
+    private $outdorServer = NULL;
+    
+    public function __construct() {
+        $this->outdorServer = new OutdoorService();
+        $listaOutdoors = $this->outdorServer->getOutdoors();
+        include __DIR__.'/../views/outdoors.php';
+    }
 }
+
+$outdoors = new OutdoorController();

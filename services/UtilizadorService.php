@@ -36,10 +36,13 @@ class UtilizadorService implements IUtilizadorService {
             
             if ($utilizador !== NULL) {
                 if ($this->isAdm($utilizador)) {
+                    $_SESSION['tipo'] = "adm";
                     return 'adm';
                 } else if ($this->isCliente($utilizador) ) {
+                    $_SESSION['tipo'] = "cliente";
                     return 'cliente';
                 } else if ($this->isGestor($utilizador)) {
+                    $_SESSION['tipo'] = "gestor";
                     return'gestor';
                 } else {
                     return false;

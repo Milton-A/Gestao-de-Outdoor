@@ -3,6 +3,7 @@
 require_once __DIR__ . '/./ClienteController.php';
 require_once __DIR__ . '/./AdministradorController.php';
 require_once __DIR__ . '/../services/UtilizadorService.php';
+require_once __DIR__ . '/../model/AluguerModel.php';
 
 class homeController {
 
@@ -10,14 +11,22 @@ class homeController {
     private $clienteController = NULL;
     private $gestorController = NULL;
     private $utilizadorService = NULL;
+    private $aluger = array();
 
     public function __construct() {
-
         $this->admController = new AdministradorController();
         $this->gestorController = new GestorController();
         $this->clienteController = new ClienteController();
         $this->utilizadorService = new UtilizadorService();
-
+        
+        if (isset($_POST['form-aluguer'])) {
+            $preco = filter_input(INPUT_POST, 'precoItem');
+            $dataFim = filter_input(INPUT_POST, 'dataFim');
+            $dataInicio = filter_input(INPUT_POST, 'dataInicio');
+            $idOut = filter_input(INPUT_POST, 'idItem');
+            $idU = filter_input(INPUT_POST, 'idUser');
+            $this->aluger[] = new AluguerModel($dataInicio, $dataFim, null, $idU, $idOut, "Nao");
+        }
         $op = filter_input(INPUT_GET, 'op');
         $opEstado = filter_input(INPUT_GET, 'estado');
         $action = isset($op) ? $op : NULL;

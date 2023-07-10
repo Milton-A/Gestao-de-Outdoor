@@ -65,31 +65,7 @@ class AdministradorService implements IAdministradorService {
             throw $e;
         }
     }
-
-    public function bloquearCliente($id) {
-        try {
-            $this->clienteRepositorie->setEstado("bloqueado", $id);
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
-
-    public function desbloquearCliente($id) {
-        try {
-            $this->clienteRepositorie->setEstado("desbloqueado", $id);
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
-
-    public function ativarCliente($id) {
-        try {
-            $this->clienteRepositorie->setEstado("ativado", $id);
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
-
+    
     public function showClientes() {
         return  $this->clienteRepositorie->selectAll();
     }
