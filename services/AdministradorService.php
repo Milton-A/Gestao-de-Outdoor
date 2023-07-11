@@ -89,6 +89,10 @@ class AdministradorService implements IAdministradorService {
         $this->gestorRepositorie->deleteCliente($id);
     }
     
+     public function showOutdoors(){
+        return $this->outdoorRepositorie->selectAll();
+    }
+    
     public function selectCountOutdoor(){
        return $this->outdoorRepositorie->selectCount();
     }

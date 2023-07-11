@@ -14,8 +14,10 @@ class AdministradorController {
 
     public function __construct() {
         $this->admService = new AdministradorService();
+        
         $op = filter_input(INPUT_GET, 'op');
         $action = isset($op) ? $op : NULL;
+        
         try {
             if ($action === 'addGestor') {
                 $this->showCadastrarGestor();
@@ -41,11 +43,7 @@ class AdministradorController {
     public function selectAdm($id) {
         $this->admService->selectById($id);
     }
-
-    public function showAdms() {
-        $this->admService->selectAll();
-    }
-
+    
     public function showClientes() {
         $clientes = $this->admService->showClientes();
         include __DIR__.'/../views/tabelas/cliente.php';
@@ -55,17 +53,18 @@ class AdministradorController {
         $gestores = $this->admService->showGestores();
         include __DIR__.'/../views/tabelas/gestor.php';
     }
-
-    public function alterarAdm($id, $nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senha, $eliminado) {
-        $this->admService->alterarUtilizador($id, $nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senha, $eliminado);
+    
+    public function showOutdoors() {
+        $outdoors = $this->admService->showOutdoors();
+        include __DIR__.'/../views/tabelas/outdoors.php';
     }
-
-    public function deleteAdministrador($id) {
-        $this->admService->deleteAdministrador($id);
-    }
-
+    
     public function criarGestor($nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senha, $eliminado) {
         $this->admService->criarGestor($nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senha, $eliminado);
+    }
+    
+    public function showAdms() {
+        $this->admService->selectAll();
     }
 
     public function getTotalOutdoors() {

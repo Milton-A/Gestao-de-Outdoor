@@ -16,7 +16,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && $_SESSION[
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto" id="menu">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Ver Clientes</a>
+                    <a class="nav-link" href="index.php?op=adm">Ver Clientes</a>
                 </li>
                 <li class="nav-item" >
                     <a class="nav-link" href="index.php?op=adm&&estado=verGestor">Ver Gestor</a>
@@ -62,7 +62,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && $_SESSION[
                     </div>
                 </div>
             </div>
-            <?php $admController->showClientes(); ?>
+            <?php $admController->showOutdoors(); ?>
         </div>
     </main>
     <?php

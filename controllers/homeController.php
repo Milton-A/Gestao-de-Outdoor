@@ -18,7 +18,7 @@ class homeController {
         $this->gestorController = new GestorController();
         $this->clienteController = new ClienteController();
         $this->utilizadorService = new UtilizadorService();
-        
+
         if (isset($_POST['form-aluguer'])) {
             $preco = filter_input(INPUT_POST, 'precoItem');
             $dataFim = filter_input(INPUT_POST, 'dataFim');
@@ -35,17 +35,21 @@ class homeController {
                 
             } else if ($action === 'login') {
                 $this->showLogin();
+            }else if ($action === 'gestor') {
+                $this->showGestorPage();
             } else if ($action === 'adm') {
                 if ($opEstado === 'addGestor') {
                     $this->showRegistro("addGestor");
+                } elseif ($opEstado === 'verGestor') {
+                    $this->showAdmPageGestor();
+                } elseif ($opEstado === 'verOutdoors') {
+                    $this->showAdmPageOutdoors();
                 } else
                     $this->showAdmPage();
             } else if ($action === 'logout') {
                 $this->showLogOut();
             } else if ($action === 'registrar') {
                 $this->showRegistro("addCliente");
-            } else if ($op == 'registroCliente') {
-                $this->registrar();
             } else if ($op == 'alterarAdm' || $op == 'alterarGestor' || $op == 'alterarCliente') {
                 $this->alterar();
             } else {
@@ -108,9 +112,31 @@ class homeController {
                     if (!$this->utilizadorService->verificaUsername($username)) {
                         if ($estado === "addGestor") {
                             $this->admController->criarGestor($nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senha, $eliminado);
+                            $to_email = "$email";
+                            $subject = "Dados de Login";
+                            $body = "Dados de Login (Username: $username && Senha: $senha)! Deverá alterar os dados para poder acessar o sistema";
+                            $headers = "From: suporte@GestoaOutdoor.com";
+
+                            if (mail($to_email, $subject, $body)) {
+                                echo "Email successfully sent to $to_email...";
+                            } else {
+                                echo "Email sending failed...";
+                            }
                             $this->redirect('index.php?op=login');
                         } else {
                             $this->clienteController->criarCliente($nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senha, $eliminado);
+
+                            $to_email = "adrianonovo33@gmail.com";
+                            $subject = "Novo Registro";
+                            $body = "Um novo Usuário foi registrado";
+                            $headers = "From: $email ";
+
+                            if (mail($to_email, $subject, $body)) {
+                                echo "Email successfully sent to $to_email...";
+                            } else {
+                                echo "Email sending failed...";
+                            }
+
                             $this->redirect('index.php?op=login');
                         }
                     } else {
@@ -132,6 +158,17 @@ class homeController {
 
     public function showAdmPage() {
         include __DIR__ . '/../views/administrador/administradorView.php';
+    }
+    public function showGestorPage() {
+        include __DIR__.'/../views/gestor/gestorView.php';
+    }
+    
+    public function showAdmPageOutdoors() {
+        include __DIR__ . '/../views/administrador/administradorViewOutdoors.php';
+    }
+
+    public function showAdmPageGestor() {
+        include __DIR__ . '/../views/administrador/administradorViewGestor.php';
     }
 
     public function showError($tittle, $message) {

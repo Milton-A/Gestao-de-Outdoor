@@ -23,7 +23,7 @@ class ClienteController {
             $idCliente = $_POST['idCliente'];
             $this->clienteService->desbloquearCliente($idCliente);
         }
-        $clientes = 
+         
         
     }   
     public function criarCliente($nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senha, $eliminado) {

@@ -14,14 +14,24 @@ class AluguerModel {
     private $recibo;
     private $idOutdoor;
     private $aprovado;
+    private $id;
 
-    public function __construct($dataInicio, $dataFim, $recibo = null, $idUsuario, $idOutdoor, $aprovado) {
+    public function __construct($id, $dataInicio, $dataFim, $recibo = null, $idUsuario, $idOutdoor, $aprovado) {
         $this->dataInicio = $dataInicio;
         $this->dataFim = $dataFim;
         $this->idUsuario = $idUsuario;
         $this->recibo = $recibo;
         $this->idOutdoor = $idOutdoor;
         $this->aprovado = $aprovado;
+        $this->id = $id;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id): void {
+        $this->id = $id;
     }
 
     public function getAprovado() {
@@ -39,7 +49,6 @@ class AluguerModel {
     public function getDataFim() {
         return $this->dataFim;
     }
-
 
     public function setDataInicio($dataInicio): void {
         $this->dataInicio = $dataInicio;
@@ -64,7 +73,7 @@ class AluguerModel {
     public function getIdOutdoor() {
         return $this->idOutdoor;
     }
-    
+
     public function setRecibo($recibo): void {
         $this->recibo = $recibo;
     }
@@ -72,4 +81,5 @@ class AluguerModel {
     public function setIdOutdoor($idOutdoor): void {
         $this->idOutdoor = $idOutdoor;
     }
+
 }

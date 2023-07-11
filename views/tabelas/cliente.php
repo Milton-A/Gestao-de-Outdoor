@@ -1,3 +1,10 @@
+
+<div class="card detail">
+                <div class="detail-header">
+                    <h2>Usuarios Registrados</h2>
+                    <button>ver mais..</button>
+                </div>
+
 <table id="listarDados">
     <tr>
         <th>Cod</th>
@@ -40,3 +47,5 @@
         <tr>
         <?php } ?>
 </table>
+    
+            </div>

@@ -1,4 +1,3 @@
-
 <div class="card detail">
     <div class="detail-header">
         <h2>Outdoors Registrados</h2>
@@ -19,7 +18,7 @@
                 <td><?php echo $cada->getIdOutdoor(); ?></td>
                 <td><?php echo $cada->getTipo() ?></td>
                 <td><?php echo $cada->getComuna(); ?></td>
-                <td><span class="status ativo"><i class="fas fa-circle"></i> <?php echo $cada->getDisponibilidade(); ?></span></td>
+                <td><span class="status ativo"><i class="fas fa-circle"></i> <?php if($cada->getDisponibilidade() === 0) echo 'Livre'; else  echo 'Ocupado';  ?></span></td>
                 <td><?php echo $cada->getPreco(); ?></td>
             </tr>
             <tr>

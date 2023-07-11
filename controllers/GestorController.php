@@ -8,11 +8,26 @@ require_once __DIR__.'/../services/GestorService.php';
 class GestorController {
     //put your code here
     private $gestorService = NULL;
+    
     public function __construct() {
         $this->gestorService = new GestorService();
     }
     
     public function alterarDados($id, $nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senha, $eliminado) {
         $this->gestorService->alterarUtilizador($id, $nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senha, $eliminado);
+    }
+    
+    public function apresentarGestores(){
+        $gestores = $this->gestorService->showGestores();
+        include __DIR__.'/../views/tabelas/gestor.php';
+    }
+    
+    public function apresentarTotalOutdoors(){
+        return $this->gestorService->getTotalOutdoors();
+    }
+    
+    public function apresentarOutdoors(){
+        $outdoors = $this->gestorService->showOutdoors();
+        include __DIR__.'/../views/gestor/tabela.php';
     }
 }

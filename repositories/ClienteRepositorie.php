@@ -28,7 +28,6 @@ class ClienteRepositorie implements IClienteRepositorie {
             $stmt->bindParam(":senha", $senha);
             $stmt->bindParam(":eliminado", $eliminado);
             $stmt->execute();
-            mail('adrianonovo33@gmail.com', 'Cadastro de novo Usuário', 'O Usuario: precisa de verificação!', 'From: adrianonovo33@gmail.com');
             $id = $this->db->lastInsertId();
             $this->insertId($id);
             return true;
@@ -43,9 +42,9 @@ class ClienteRepositorie implements IClienteRepositorie {
             $stmt = $this->db->prepare("SELECT * FROM utilizadorregistado where idUtilizadorRegistado = :id ");
             $stmt->bindparam(":id", $id);
             $stmt->execute();
-            $cliente = $stmt->fetch(PDO::FETCH_ASSOC);
+            $adm = $stmt->fetch(PDO::FETCH_ASSOC);
             
-            if ($cliente != null) {
+            if ($adm != null) {
                 return true;
             } else {
                 return false;

@@ -9,7 +9,7 @@ require_once __DIR__.'/../services/OutdoorService.php';
 
 class OutdoorController {
     private $outdorServer = NULL;
-    
+        
     public function __construct() {
         $this->outdorServer = new OutdoorService();
         $listaOutdoors = $this->outdorServer->getOutdoors();

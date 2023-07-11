@@ -44,6 +44,16 @@ $(document).ready(function () {
         });
     });
 
+    $(document).on('click', '#verGestores', function () {
+        $.ajax({
+            url: 'controllers/gestorController.php',
+            type: 'POST',
+            success: function (response) {
+                $('#divTabela').append(response);
+            }
+        });
+    });
+
     $(document).ready(function () {
         $.ajax({
             type: "POST",
@@ -54,7 +64,7 @@ $(document).ready(function () {
             }
         });
     });
-    
+
     $(document).ready(function () {
         $.ajax({
             type: "POST",
