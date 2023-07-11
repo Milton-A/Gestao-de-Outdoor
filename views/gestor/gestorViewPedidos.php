@@ -18,9 +18,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && $_SESSION[
                 <li class="nav-item" >
                     <a class="nav-link" href="index.php?op=gestor&&estado=verPedidos">Ver Pedidos</a>
                 </li>
-                <li class="nav-item" >
-                    <a class="nav-link" href="index.php?op=gestor&&estado=addOutdoor">Adicionar Outdoor</a>
-                </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -30,13 +27,14 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && $_SESSION[
     </nav>
     <main>
         <div class="dashboard-container">
+
             <div class="info-detail">
                 <h3>Outdores</h3>
                 <p> total:
                     <?php echo $gestorController->apresentarTotalOutdoors(); ?>
                 </p>
             </div>
-            <?php $gestorController->apresentarOutdoors(); ?>
+            <?php $gestorController->apresentarPedidosOutdoors(); ?>
         </div>
     </main>
     <?php

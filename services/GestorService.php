@@ -49,6 +49,15 @@ class GestorService implements IGestorService {
         }
     }
     
+    public function showPedidos()
+    {
+        try{
+           return $this->solicitaAl->selectAll();
+        } catch (Exception $ex) {
+            throw $e;
+        }
+    }
+    
     public function aprovar($id)
     {
         try{

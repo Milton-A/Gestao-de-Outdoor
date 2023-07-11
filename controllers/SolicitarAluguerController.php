@@ -1,15 +1,29 @@
 <?php
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
- */
-
 /**
  * Description of SolicitarAluguerModel
  *
  * @author Milton Dantas
  */
-class SolicitarAluguerModel {
+require_once __DIR__ . '/../services/SolicitarAluguerService.php';
+
+class SolicitarAluguerController {
+
     //put your code here
+    private $solicitaService = NULL;
+
+    public function __construct() {
+        $this->solicitaService = new SolicitarAluguerService();
+        if (isset($_POST['action']) && $_POST['action'] === 'aprovar' && isset($_POST['idAluguer'])) {
+            $idOutdoor = $_POST['idAluguer'];
+            $this->solicitaService->aprovar($idOutdoor);
+        }
+         if (isset($_POST['action']) && $_POST['action'] === 'reprovar' && isset($_POST['idAluguer'])) {
+            $idOutdoor = $_POST['idAluguer'];
+            $this->solicitaService->reprovar($idOutdoor);
+        }
+    }
+
 }
+
+$show = new SolicitarAluguerController();

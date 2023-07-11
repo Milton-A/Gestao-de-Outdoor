@@ -36,6 +36,11 @@ class homeController {
             } else if ($action === 'login') {
                 $this->showLogin();
             }else if ($action === 'gestor') {
+                if ($opEstado === 'verPedidos') {
+                    $this->showGestorPagePedidos();
+                }else if ($opEstado === 'addOutdoor') {
+                    $this->showGestorPageAddOutdoor();
+                }else
                 $this->showGestorPage();
             } else if ($action === 'adm') {
                 if ($opEstado === 'addGestor') {
@@ -161,6 +166,13 @@ class homeController {
     }
     public function showGestorPage() {
         include __DIR__.'/../views/gestor/gestorView.php';
+    }
+    
+    public function showGestorPagePedidos() {
+        include __DIR__.'/../views/gestor/gestorViewPedidos.php';
+    }
+    public function showGestorPageAddOutdoor() {
+        include __DIR__.'/../views/gestor/gestorViewCriar.php';
     }
     
     public function showAdmPageOutdoors() {

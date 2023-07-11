@@ -15,8 +15,10 @@ class AluguerModel {
     private $idOutdoor;
     private $aprovado;
     private $id;
+    private $preco;
+    private $tipo;
 
-    public function __construct($id, $dataInicio, $dataFim, $recibo = null, $idUsuario, $idOutdoor, $aprovado) {
+    public function __construct($id, $dataInicio, $dataFim, $recibo = null, $idUsuario, $idOutdoor, $aprovado, $preco, $tipo) {
         $this->dataInicio = $dataInicio;
         $this->dataFim = $dataFim;
         $this->idUsuario = $idUsuario;
@@ -24,6 +26,8 @@ class AluguerModel {
         $this->idOutdoor = $idOutdoor;
         $this->aprovado = $aprovado;
         $this->id = $id;
+        $this->preco = $preco;
+        $this->tipo = $tipo;
     }
 
     public function getId() {
@@ -81,5 +85,22 @@ class AluguerModel {
     public function setIdOutdoor($idOutdoor): void {
         $this->idOutdoor = $idOutdoor;
     }
+    public function getPreco() {
+        return $this->preco;
+    }
 
+    public function getTipo() {
+        return $this->tipo;
+    }
+
+    public function setPreco($preco): void {
+        $this->preco = $preco;
+    }
+
+    public function setTipo($tipo): void {
+        $this->tipo = $tipo;
+    }
+    public function getIdUsuario() {
+        return $this->idUsuario;
+    }
 }

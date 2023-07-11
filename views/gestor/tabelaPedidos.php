@@ -7,19 +7,38 @@
         <tr>
             <th>Cod</th>
             <th>Tipo</th>
-            <th>Comuna</th>
-            <th>Disponibilidade</th>
+            <th>Cliente</th>
+            <th>Data Inicio</th>
+            <th>Data Fim</th>
             <th>Preço</th>
+            <th>Aprovado</th>
+            <th></th>
         </tr>
         <?php
         foreach ($outdoors as $cada) {
             ?>
             <tr>
-                <td><?php echo $cada->getIdOutdoor(); ?></td>
+                <td><?php echo $cada->getId(); ?></td>
                 <td><?php echo $cada->getTipo() ?></td>
-                <td><?php echo $cada->getComuna(); ?></td>
-                <td><span class="status ativo"><i class="fas fa-circle"></i> <?php if($cada->getDisponibilidade() === 0) echo 'Livre'; else  echo 'Ocupado';  ?></span></td>
-                <td><?php echo $cada->getPreco(); ?></td>
+                <td><?php echo $cada->getIdUsuario(); ?></td>
+                <td><?php echo $cada->getDataInicio(); ?></td>
+                <td><?php echo $cada->getDataFim(); ?></td>
+                <td><?php echo "Kz " . $cada->getPreco() . ",00"; ?></td>
+                <td><span class="status
+                    <?php
+                    if ($cada->getAprovado() === 'Nao') {
+                        echo 'off';
+                    } else if ($cada->getAprovado() === 'Reprovado') {
+                        echo 'bloqueado';
+                    } else if ($cada->getAprovado() === 'Sim') {
+                        echo 'ativo';
+                    }
+                    ?>"><i class="fas fa-circle"></i> <?php echo $cada->getAprovado(); ?></span></td>
+                <td>
+                    <button id="aprovar">Aprovar</button>
+                    <button id="reprovar">Reprovar</button>
+                    <button id="aprovar">Baixar Recibo</button>
+                </td>
             </tr>
             <tr>
             <?php } ?>

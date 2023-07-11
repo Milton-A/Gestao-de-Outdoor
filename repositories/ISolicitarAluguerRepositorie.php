@@ -8,6 +8,6 @@
 interface ISolicitarAluguerRepositorie {
     public function selectCount();
     public function selectAll();
-    public function aprovar();
     public function validarRecibo();
+    public function aprovar($estado, $id);
 }

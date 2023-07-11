@@ -30,4 +30,9 @@ class GestorController {
         $outdoors = $this->gestorService->showOutdoors();
         include __DIR__.'/../views/gestor/tabela.php';
     }
+    
+    public function apresentarPedidosOutdoors(){
+        $outdoors = $this->gestorService->showPedidos();
+        include __DIR__.'/../views/gestor/tabelaPedidos.php';
+    }
 }

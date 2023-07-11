@@ -1,7 +1,7 @@
 <div class="card detail">
     <div class="detail-header">
         <h2>Outdoors Registrados</h2>
-        <button>ver mais..</button>
+        <button>Novo Outdoor</button>
     </div>
     <table id="listarDados">
         <tr>

@@ -10,6 +10,32 @@
  *
  * @author Milton Dantas
  */
-class SolicitarAluguerModel {
+
+require_once __DIR__.'/./ISolicitarAluguerService.php';
+require_once __DIR__.'/../repositories/SolicitarAluguerRepositorie.php';
+
+class SolicitarAluguerService implements ISolicitarAluguerService {
     //put your code here
+    private $solicitarRepositorie = NULL;
+    
+    public function __construct() {
+        $this->solicitarRepositorie = new SolicitarAluguerRepositorie();
+    }
+    
+    public function aprovar($id) {
+        try {
+           $this->solicitarRepositorie->aprovar("Sim", $id);
+           return true;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+     public function reprovar($id) {
+        try {
+           $this->solicitarRepositorie->aprovar("Reprovado", $id);
+           return true;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 }

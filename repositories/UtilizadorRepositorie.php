@@ -19,7 +19,7 @@ class UtilizadorRepositorie implements IUtilizadorRepositorie {
     }
 
     public function login($username, $password) {
-        $stmt = $this->db->prepare("SELECT idUtilizador, senha FROM utilizador WHERE username = :username");
+        $stmt = $this->db->prepare("SELECT idUtilizador, senha FROM utilizador WHERE username = :username and eliminado <> 'Sim'");
         $stmt->bindParam(":username", $username);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -33,7 +33,7 @@ class UtilizadorRepositorie implements IUtilizadorRepositorie {
     }
 
     public function verificaEmail($email) {
-        $stmt = $this->db->prepare("SELECT * FROM utilizador WHERE email = :email");
+        $stmt = $this->db->prepare("SELECT * FROM utilizador WHERE email = :email and eliminado <> 'Sim'");
         $stmt->bindParam(":email", $email);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -45,7 +45,7 @@ class UtilizadorRepositorie implements IUtilizadorRepositorie {
     }
 
     public function verificaUsername($username) {
-        $stmt = $this->db->prepare("SELECT * FROM utilizador WHERE username = :username");
+        $stmt = $this->db->prepare("SELECT * FROM utilizador WHERE username = :username  and eliminado <> 'Sim'");
         $stmt->bindParam(":username", $username);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);

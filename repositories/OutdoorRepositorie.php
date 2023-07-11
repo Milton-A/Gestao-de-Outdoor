@@ -19,7 +19,7 @@ class OutdoorRepositorie implements IOutdoorRepositorie {
 
     public function selectCount() {
         try {
-            $stmt = $this->db->prepare("SELECT COUNT(*) FROM `outdoor`");
+            $stmt = $this->db->prepare("SELECT COUNT(*) FROM `outdoor` WHERE eliminado <> 'Sim'");
             $stmt->execute();
             $adm = $stmt->fetchColumn(); // Obtenha todos os resultados em vez de apenas uma linha
             return $adm;
@@ -31,7 +31,7 @@ class OutdoorRepositorie implements IOutdoorRepositorie {
 
     public function selectAll() {
         try {
-            $stmt = $this->db->prepare("SELECT `idOutdoor`, `tipo`, `idComuna`, `imagem`, `disponibilidade`, `preco` FROM `outdoor`");
+            $stmt = $this->db->prepare("SELECT `idOutdoor`, `tipo`, `idComuna`, `imagem`, `disponibilidade`, `preco` FROM `outdoor` WHERE eliminado <> 'Sim'");
             $stmt->execute();
             $outdoors = $stmt->fetchAll(); // Obtenha todos os resultados em vez de apenas uma linha
             $listaOutdoor = array();

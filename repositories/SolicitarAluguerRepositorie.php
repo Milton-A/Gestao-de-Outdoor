@@ -32,12 +32,12 @@ class SolicitarAluguerRepositorie implements ISolicitarAluguerRepositorie{
 
     public function selectAll() {
         try {
-            $stmt = $this->db->prepare("SELECT `id`,`dataInicio`, `dataFim`, `reciboPagamento`, `idUtilizadorRegistado`, `idOutdoor`, `aprovado` FROM `alugueroutdoor`");
+            $stmt = $this->db->prepare("SELECT `dataInicio`, `dataFim`, `reciboPagamento`,ut.nome as nome,o.tipo as tipo,o.preco as preco, `aprovado`, `id`,a.idOutdoor as idOutdoor FROM `alugueroutdoor` a join utilizadorregistado u on u.idUtilizadorRegistado = a.idUtilizadorRegistado join utilizador ut on ut.idUtilizador = u.idUtilizadorRegistado join outdoor o on o.idOutdoor = a.idOutdoor");
             $stmt->execute();
             $outdoors = $stmt->fetchAll(); // Obtenha todos os resultados em vez de apenas uma linha
             $listaOutdoor = array();
             foreach ($outdoors as $cada) { // Itere sobre os resultados
-                $listaOutdoor[] = new AluguerModel($cada['id'],$cada['dataInicio'],$cada['dataFim'], $cada['reciboPagamento'], $cada['idUilizadorRegistado'], $cada['idOutdoor'],$cada['aprovado']);
+                $listaOutdoor[] = new AluguerModel($cada['id'],$cada['dataInicio'],$cada['dataFim'], $cada['reciboPagamento'], $cada['nome'], $cada['idOutdoor'],$cada['aprovado'],$cada['preco'], $cada['tipo'] );
             }
             return $listaOutdoor;
         } catch (PDOException $e) {

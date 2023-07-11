@@ -10,6 +10,8 @@
  *
  * @author Milton Dantas
  */
-class SolicitarAluguerModel {
+interface ISolicitarAluguerService {
     //put your code here
+    public function aprovar($id);
+    public function reprovar($id);
 }
