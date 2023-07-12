@@ -40,7 +40,7 @@ class GestorRepositorie implements IGestorRepositorie {
             return false;
         }
     }
-
+    
     public function selectById($id) {
         $stmt = $this->db->prepare("SELECT * FROM utilizador AS u INNER JOIN gestor ON u.idUtilizador = gestor.idGestor where gestor.idGestor = :id ");
         $stmt->bindparam(":id", $id);
@@ -49,6 +49,19 @@ class GestorRepositorie implements IGestorRepositorie {
 
         if ($gestor != null) {
             return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function isFirstLogin($id) {
+        $stmt = $this->db->prepare("SELECT `estado` FROM `gestor` WHERE idGestor = :id");
+        $stmt->bindparam(":id", $id);
+        $stmt->execute();
+        $gestor = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($gestor != null) {
+            return $gestor['estado'];
         } else {
             return false;
         }
@@ -126,6 +139,33 @@ class GestorRepositorie implements IGestorRepositorie {
             $stmt->bindParam(":username", $username);
             $stmt->bindParam(":senha", $senha);
             $stmt->bindParam(":eliminado", $eliminado);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+    
+    public function alterarDadosLogin($id, $username, $senha) {
+        try {
+            $stmt = $this->db->prepare("UPDATE utilizador SET username = :username, senha = :senha WHERE idUtilizador = :id");
+            $stmt->bindParam(":id", $id);
+            $stmt->bindParam(":username", $username);
+            $stmt->bindParam(":senha", $senha);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+    
+    public function alterarEstado($id, $estado) {
+        try {
+            $stmt = $this->db->prepare("UPDATE `gestor` SET `estado`=:estado WHERE idGestor = :id");
+            $stmt->bindParam(":id", $id);
+            $stmt->bindParam(":estado", $estado);
             $stmt->execute();
             return true;
         } catch (PDOException $e) {

@@ -17,5 +17,12 @@ class OutdoorService implements IOutdoorService {
     public function getOutdoors() {
         return $this->outdoorRepositorie->selectAll();
     }
-
+    
+    public function eliminar($id) {
+        $this->outdoorRepositorie->delete($id, "Sim");
+    }
+    
+    public function alterar() {
+        $this->alterar();
+    }
 }

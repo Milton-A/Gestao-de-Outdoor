@@ -31,6 +31,16 @@ class GestorService implements IGestorService {
         }
     }
     
+    public function alterarDadosLogin($id,$username, $senha) {
+        try {
+            $this->gestorRepositorie->alterarDadosLogin($id, $username, $senha);
+            $this->gestorRepositorie->alterarEstado($id, "OK");
+            return true;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+    
     public function showGestores()
     {
         try{
@@ -73,5 +83,13 @@ class GestorService implements IGestorService {
         } catch (Exception $ex) {
             throw $e;
         }
+    }
+    
+    public function inserirOutdoor($tipo,$idComuna, $imagem, $disponibilidade, $preco, $idGestor, $eliminado) {
+        $this->outdoorRepositorie->insert($tipo, $idComuna, $imagem, $disponibilidade, $preco, $idGestor, $eliminado);
+    }
+    
+    public function alterarOutdoor($id, $tipo,$idComuna, $imagem, $disponibilidade, $preco, $idGestor, $eliminado) {
+        $this->outdoorRepositorie->alterar($id,$tipo, $idComuna, $imagem, $disponibilidade, $preco, $idGestor, $eliminado);
     }
 }

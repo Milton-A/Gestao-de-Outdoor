@@ -6,4 +6,5 @@
 interface IOutdoorService {
     //put your code here
     public function getOutdoors();
+    public function eliminar($id) ;
 }

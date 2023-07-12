@@ -25,14 +25,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && $_SESSION[
             </form>
         </div>
     </nav>
-    <main>
-        <div class="dashboard-container">
-
-            <div class="info-detail">
-                <h3>Outdores</h3>
-                <p> total:
-                    <?php echo $gestorController->apresentarTotalOutdoors(); ?>
-                </p>
+    <main class="mx-auto w-75">
+        <div class="dashboard-container p-lg-2">
+            <div class="card info-detail ">
+                <div class="card-body">
+                    <h3 class="card-title">Outdores</h3>
+                    <p class="card-text">Total: <?php echo $gestorController->apresentarTotalOutdoors(); ?></p>
+                </div>
             </div>
             <?php $gestorController->apresentarPedidosOutdoors(); ?>
         </div>

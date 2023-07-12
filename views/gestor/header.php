@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Adm Dashboard</title>
+        <title>Gestor Dashboard</title>
         
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">

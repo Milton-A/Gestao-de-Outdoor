@@ -16,6 +16,58 @@ class OutdoorRepositorie implements IOutdoorRepositorie {
     public function __construct() {
         $this->db = DbConnection::getInstance();
     }
+    
+    public function delete($id, $estado){
+        try {
+            $stmt = $this->db->prepare("UPDATE `outdoor` SET `eliminado`=:estado WHERE idOutdoor =:id");
+            $stmt->bindParam(":id", $id);
+            $stmt->bindParam(":estado", $estado);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+    
+    public function insert($tipo,$idComuna, $imagem, $disponibilidade, $preco, $idGestor, $eliminado)
+    {
+        try {
+            $stmt = $this->db->prepare("INSERT INTO `outdoor`(`tipo`, `idComuna`, `imagem`, `disponibilidade`, `preco`, `idGestor`, `eliminado`) VALUES (:tipo,:idComuna,:imagem,:disponibilidade,:preco,:idGestor,:eliminado)");
+            $stmt->bindParam(":tipo", $tipo);
+            $stmt->bindParam(":idComuna", $idComuna);
+            $stmt->bindValue(':imagem', $imagem, PDO::PARAM_LOB);
+            $stmt->bindParam(":disponibilidade", $disponibilidade);
+            $stmt->bindParam(":preco", $preco);
+            $stmt->bindParam(":idGestor", $idGestor);
+            $stmt->bindParam(":eliminado", $eliminado);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+    
+    public function alterar($id, $tipo,$idComuna, $imagem, $disponibilidade, $preco, $idGestor, $eliminado)
+    {
+        try {
+            $stmt = $this->db->prepare("UPDATE `outdoor` SET `tipo`=:tipo,`idComuna`=:idComuna,`imagem`=:imagem,`disponibilidade`=:disponibilidade,`preco`=:preco,`idGestor`=:idGestor,`eliminado`=:eliminado WHERE idOutdoor = :id");
+            $stmt->bindParam(":tipo", $tipo);
+            $stmt->bindParam(":idComuna", $idComuna);
+            $stmt->bindValue(':imagem', $imagem, PDO::PARAM_LOB);
+            $stmt->bindParam(":disponibilidade", $disponibilidade);
+            $stmt->bindParam(":preco", $preco);
+            $stmt->bindParam(":idGestor", $idGestor);
+            $stmt->bindParam(":eliminado", $eliminado);
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
 
     public function selectCount() {
         try {

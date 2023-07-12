@@ -20,7 +20,7 @@ class homeController {
         $this->utilizadorService = new UtilizadorService();
 
         if (isset($_POST['form-aluguer'])) {
-            $preco = filter_input(INPUT_POST, 'precoItem');
+            //$preco = filter_input(INPUT_POST, 'precoItem');
             $dataFim = filter_input(INPUT_POST, 'dataFim');
             $dataInicio = filter_input(INPUT_POST, 'dataInicio');
             $idOut = filter_input(INPUT_POST, 'idItem');
@@ -35,13 +35,15 @@ class homeController {
                 
             } else if ($action === 'login') {
                 $this->showLogin();
-            }else if ($action === 'gestor') {
+            } else if ($action === 'gestor') {
                 if ($opEstado === 'verPedidos') {
                     $this->showGestorPagePedidos();
-                }else if ($opEstado === 'addOutdoor') {
+                } else if ($opEstado === 'addOutdoor') {
                     $this->showGestorPageAddOutdoor();
-                }else
-                $this->showGestorPage();
+                }else if ($opEstado === 'alterarGestor') {
+                    $this->showGestorAlterar();
+                } else
+                    $this->showGestorPage();
             } else if ($action === 'adm') {
                 if ($opEstado === 'addGestor') {
                     $this->showRegistro("addGestor");
@@ -74,6 +76,7 @@ class homeController {
     }
 
     public function showLogin() {
+
         if (isset($_POST['form-login-submitted'])) {
             $username = filter_input(INPUT_POST, 'username');
             $password = filter_input(INPUT_POST, 'senha');
@@ -86,8 +89,9 @@ class homeController {
                 } else if ($utilizador === 'gestor') {
                     $this->redirect('index.php?op=gestor');
                 } else if ($utilizador === 'adm') {
-                    echo "<script>alert('Por favor, preencha todos os campos!');</script>";
                     $this->redirect('index.php?op=adm');
+                }else if ($utilizador === 'alterar') {
+                    $this->redirect('index.php?op=gestor&&estado=alterarGestor');
                 }
             }
         } else
@@ -111,7 +115,7 @@ class homeController {
             $telemovel = filter_input(INPUT_POST, 'telemovel');
             $username = filter_input(INPUT_POST, 'userName');
             $senha = filter_input(INPUT_POST, 'senha');
-            $eliminado = 0;
+            $eliminado = 'Nao';
             try {
                 if (!$this->utilizadorService->verificaEmail($email)) {
                     if (!$this->utilizadorService->verificaUsername($username)) {
@@ -164,17 +168,58 @@ class homeController {
     public function showAdmPage() {
         include __DIR__ . '/../views/administrador/administradorView.php';
     }
+
     public function showGestorPage() {
-        include __DIR__.'/../views/gestor/gestorView.php';
+        include __DIR__ . '/../views/gestor/gestorView.php';
     }
-    
+
     public function showGestorPagePedidos() {
-        include __DIR__.'/../views/gestor/gestorViewPedidos.php';
-    }
-    public function showGestorPageAddOutdoor() {
-        include __DIR__.'/../views/gestor/gestorViewCriar.php';
+        include __DIR__ . '/../views/gestor/gestorViewPedidos.php';
     }
     
+    public function showGestorAlterar() {
+        if (isset($_POST['form-alterarD'])) {
+            $idGestor = $_SESSION['id'];
+            $username = $_POST['username'];
+            $senha = $_POST['password'];
+            try {
+                $this->gestorController->alterarDadosLogin($idGestor, $username, $senha);
+            } catch (ValidationException $e) {
+                $errors = $e->getErrors();
+            }
+            $this->redirect('index.php?op=gestor');
+        }
+        include __DIR__ . '/../views/gestor/gestorAlterarDados.php';
+    }
+
+    public function showGestorPageAddOutdoor() {
+        include __DIR__ . '/../views/gestor/gestorViewCriar.php';
+        if (isset($_POST['form-register-outdoor']) && $_POST['form-register-outdoor'] >0) {
+            $idGestor = $_SESSION['id'];
+            $id = $_POST['form-register-outdoor'];
+            $preco = $_POST['preco'];
+            $tipo_outdoor = $_POST['tipo_outdoor'];
+            $comuna = $_POST['Comuna'];
+            $imagem = file_get_contents($_FILES['imagem']['tmp_name']);
+            try {
+                $this->gestorController->alterarOutdoor($id, $tipo_outdoor, $comuna, $imagem, "Livre", $preco, $idGestor, "Nao");
+            } catch (ValidationException $e) {
+                $errors = $e->getErrors();
+            }
+        } else if (isset($_POST['form-register-outdoor']) && $_POST['form-register-outdoor'] == 0) {
+            $idGestor = $_SESSION['id'];
+            $preco = $_POST['preco'];
+            $tipo_outdoor = $_POST['tipo_outdoor'];
+            $comuna = $_POST['Comuna'];
+            $imagem = file_get_contents($_FILES['imagem']['tmp_name']);
+            try {
+                $this->gestorController->inserirOutdoor($tipo_outdoor, $comuna, $imagem, "Livre", $preco, $idGestor, "Nao");
+            } catch (ValidationException $e) {
+                $errors = $e->getErrors();
+            }
+        }
+    }
+
     public function showAdmPageOutdoors() {
         include __DIR__ . '/../views/administrador/administradorViewOutdoors.php';
     }

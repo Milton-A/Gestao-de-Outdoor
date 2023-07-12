@@ -18,9 +18,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && $_SESSION[
                 <li class="nav-item" >
                     <a class="nav-link" href="index.php?op=gestor&&estado=verPedidos">Ver Pedidos</a>
                 </li>
-                <li class="nav-item" >
-                    <a class="nav-link" href="index.php?op=gestor&&estado=addOutdoor">Adicionar Outdoor</a>
-                </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -28,17 +25,21 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && $_SESSION[
             </form>
         </div>
     </nav>
-   <main class="mx-auto w-75">
-        <div class="dashboard-container p-lg-2">
-            <div class="card info-detail ">
-                <div class="card-body">
-                    <h3 class="card-title">Outdores</h3>
-                <p> total:
-                    <?php echo $gestorController->apresentarTotalOutdoors(); ?>
-                </p>
-              </div>
-            </div>
-            <?php $gestorController->apresentarOutdoors(); ?>
+    <main class="mx-auto w-75">
+        <div class="container">
+            <h1>Alterar Nome de Usuário e Senha</h1>
+            <form method="post" action="index.php?op=gestor&&estado=alterar">
+                <div class="form-group">
+                    <label for="username">Novo Nome de Usuário</label>
+                    <input type="text" class="form-control" name="username" placeholder="Digite o novo nome de usuário">
+                </div>
+                <div class="form-group">
+                    <label for="password">Nova Senha</label>
+                    <input type="password" class="form-control" name="password" placeholder="Digite a nova senha">
+                </div>
+                <input type="hidden" name="form-alterarD" value="1" />
+                <button type="submit" class="btn btn-primary">Alterar</button>
+            </form>
         </div>
     </main>
     <?php

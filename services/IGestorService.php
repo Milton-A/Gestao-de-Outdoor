@@ -17,6 +17,8 @@ interface IGestorService {
     public function aprovar($id);
 
     public function getTotalOutdoors();
+    
+    public function inserirOutdoor($tipo,$idComuna, $imagem, $disponibilidade, $preco, $idGestor, $eliminado);
 
     public function alterarUtilizador($id, $nome, $apelido, $actividadeEmpresa, $tipoCliente, $comuna, $nacionalidade, $morada, $email, $telemovel, $username, $senha, $eliminado);
 }

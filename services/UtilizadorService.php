@@ -29,6 +29,7 @@ class UtilizadorService implements IUtilizadorService {
     public function verificaLogin($username, $senha) {
         try {
             $utilizador = $this->utilizadorRepositorie->login($username, $senha);
+            $verLogin = $this->isFirstLogin($utilizador);
             session_start();
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $username;
@@ -41,7 +42,10 @@ class UtilizadorService implements IUtilizadorService {
                 } else if ($this->isCliente($utilizador) ) {
                     $_SESSION['tipo'] = "cliente";
                     return 'cliente';
-                } else if ($this->isGestor($utilizador)) {
+                } else if ($this->isGestor($utilizador) && $verLogin === "Off") {
+                    $_SESSION['tipo'] = "gestor";
+                    return'alterar';
+                }else if ($this->isGestor($utilizador) && $verLogin === "OK") {
                     $_SESSION['tipo'] = "gestor";
                     return'gestor';
                 } else {
@@ -68,6 +72,10 @@ class UtilizadorService implements IUtilizadorService {
 
     public function isGestor($id) {
         return $this->gestorRepositorie->selectById($id);
+    }
+    
+    public function isFirstLogin($id) {
+        return $this->gestorRepositorie->isFirstLogin($id);
     }
 
     public function isAdm($id) {
